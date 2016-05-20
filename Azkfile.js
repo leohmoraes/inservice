@@ -50,7 +50,7 @@ systems({
     },
     ports: {
       // exports global variables: "#{net.port.data}"
-      data: "3306/tcp",
+      data: "3306:3306/tcp",
     },
     envs: {
       // SET INSTANCES VARIABLES
@@ -70,20 +70,6 @@ systems({
       MYSQL_DATABASE: "#{envs.MYSQL_DATABASE}"
 
       //phpmyadmin DATABASE_URL: "mysql2://#{envs.MYSQL_USER}:#{envs.MYSQL_PASSWORD}@#{net.host}:#{net.port.data}/#{envs.MYSQL_DATABASE}",
-    },
-  },
-  phpmyadmin: {
-    // Dependent systems
-    depends: ["mysql57"],
-    // More images:  http://images.azk.io
-    image: { docker: "reduto/phpmyadmin" },
-    wait: {retry: 20, timeout: 1000},
-    scalable: {default: 1, limit: 1},
-    http: {
-      domains: [ "#{system.name}.#{azk.default_domain}" ]
-    },
-    ports: {
-      http: "80/tcp",
     },
   },
 });
